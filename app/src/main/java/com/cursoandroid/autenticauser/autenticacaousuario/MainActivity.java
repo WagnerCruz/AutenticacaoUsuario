@@ -20,21 +20,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseAuth.signInWithEmailAndPassword("wagnerfcruz@gmail.com","lotusnotes");
 
-        firebaseAuth.signInWithEmailAndPassword("wagnerfcruz@gmail.com","lotusns")
+
+
+        //Login do usuário
+        firebaseAuth.signInWithEmailAndPassword("wagnerfcruz@gmail.com","lotusnotes")
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()){
-                            Log.i("SignIn User" , "Usuario logado com sucesso!!" + task.getException());
+//                        if (task.isSuccessful()){
+//                            Log.i("SignIn User" , "Usuario logado com sucesso!!" + task.getException());
+//                        }else{
+//                            Log.i("SignIn user", "Erro ao logar o usuario" + task.getException());
+//                        }
+                        if (firebaseAuth.getCurrentUser() != null){
+                            Log.i("Usuario Logado: ","Usuario " + firebaseAuth.getCurrentUser().getEmail() + " logado.");
                         }else{
-                            Log.i("SignIn user", "Erro ao logar o usuario" + task.getException());
+                            Log.i("Usuario logado","Não há usuário logado");
+                        }
+
+                        firebaseAuth.signOut();
+
+                        if (firebaseAuth.getCurrentUser() != null){
+                            Log.i("Usuario Logado: ","Usuario " + firebaseAuth.getCurrentUser() + " logado.");
+                        }else{
+                            Log.i("Usuario logado","Não há usuário logado");
                         }
 
                     }
                 });
 
+
+//        Cadastrar Usuario
 //        firebaseAuth.createUserWithEmailAndPassword("wagnerfcruz@gmail.com","lotusnotes")
 //                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
 //                    @Override
